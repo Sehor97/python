@@ -27,7 +27,16 @@ class Matriz:
         self.matriz[2][1] = 0
 
     def premio(self):
-        self.matriz[3][2] = 3
+        validate = True
+        while validate:
+            i = int(input('ingrese la posicion i del cereza'))
+            j = int(input('ingrese la posicion j del cereza'))
+            if 0 < i <= 3 and 0 < j <= 3:
+                if prueba.matriz[i][j] != 0:
+                    self.matriz[i][j] = 3
+                    validate = False
+                else:
+                    print('la posicion que esta ingresando esta bloqueada')
 
     def imprimir(self):
         imprimir = ""
@@ -171,11 +180,20 @@ class Matriz:
 prueba = Matriz()
 prueba.poblar()
 prueba.obstaculos()
+prueba.imprimir()
 prueba.premio()
 prueba.imprimir()
 inicial = nodo()
-inicial.i = 0
-inicial.j = 0
-inicial.value = prueba.matriz[0][0]
+validatepac = True
+while validatepac:
+    inicial.i = int(input('ingrese la posicion i del pacman'))
+    inicial.j = int(input('ingrese la posicion j del pacman'))
+    if 0 <= inicial.i <= 3 and 0 <= inicial.j <= 3:
+        if prueba.matriz[inicial.i][inicial.j] != 0 :
+            validatepac = False
+        else:
+            print('la posicion que esta ingresando esta bloqueada')
+
+inicial.value = prueba.matriz[inicial.i][inicial.j]
 inicial.revisado = ''
 prueba.find(inicial)
