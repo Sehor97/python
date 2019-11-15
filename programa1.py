@@ -9,7 +9,7 @@ class nodo:
 class Matriz:
 
     def __init__(self):
-        self.matriz = []
+        self.matriz = {}
         self.fila = 4
         self.columna = self.fila
         self.hijos = []
