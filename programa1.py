@@ -4,16 +4,24 @@ class nodo:
         self.j = None
         self.value = None
         self.revisado = ''
+        self.predecesor = None
+
+    def asignarPredecesor(self, prede):
+        self.predecesor = prede
+
+    def obtenerPredecesor(self):
+        return self.predecesor
 
 
 class Matriz:
 
     def __init__(self):
-        self.matriz = {}
+        self.matriz = []
         self.fila = 4
         self.columna = self.fila
         self.hijos = []
         self.con = True
+        self.mostrar = None
 
     def poblar(self):
         for i in range(int(self.fila)):
@@ -57,6 +65,7 @@ class Matriz:
                 nodosal.i = nodoent.i
                 nodosal.j = nodoent.j + 1
                 nodosal.value = itemd
+                nodosal.asignarPredecesor(nodoent)
                 nodosal.revisado = 'der'
                 print('----derecha-----')
                 print('---entrada')
@@ -75,6 +84,7 @@ class Matriz:
                 nodosal.i = nodoent.i
                 nodosal.j = nodoent.j - 1
                 nodosal.value = itemi
+                nodosal.asignarPredecesor(nodoent)
                 nodosal.revisado = 'izq'
                 print('----izquierda-----')
                 print('---entrada')
@@ -93,6 +103,7 @@ class Matriz:
                 nodosal.i = nodoent.i + 1
                 nodosal.j = nodoent.j
                 nodosal.value = items
+                nodosal.asignarPredecesor(nodoent)
                 nodosal.revisado = 'inf'
                 print('----inferior-----')
                 print('---entrada')
@@ -111,6 +122,7 @@ class Matriz:
                 nodosal.i = nodoent.i - 1
                 nodosal.j = nodoent.j
                 nodosal.value = itemsup
+                nodosal.asignarPredecesor(nodoent)
                 nodosal.revisado = 'sup'
                 print('----superior-----')
                 print('---entrada')
@@ -119,6 +131,13 @@ class Matriz:
                 print(nodosal.i, nodosal.j, nodosal.value, nodosal.revisado)
 
         return nodosal
+
+    def recorrer(self,y):
+        x = y
+        while (x.obtenerPredecesor()):
+            print(str(x.i)+str(x.j))
+            x = x.obtenerPredecesor()
+        print(str(x.i)+str(x.j))
 
     def find(self, nodo):
         self.hijos.append(nodo)
@@ -162,6 +181,7 @@ class Matriz:
 
         for i in range(len(colas)):
             if colas[i].value == 3:
+                self.mostrar = colas[i]
                 print(colas[i].value)
                 print('---fin---')
                 continuar = False
@@ -173,6 +193,7 @@ class Matriz:
                 print('------')
                 self.find(colas[i])
         else:
+            self.recorrer(self.mostrar)
             breakpoint()
             print("ENCONTRADO")
 
